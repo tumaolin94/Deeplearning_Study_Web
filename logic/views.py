@@ -13,13 +13,20 @@ import test1
 # import assignment1.test1
 def hello(request):
     static_path = settings.BASE_DIR
+    static_path2 = settings.STATICFILES_DIRS[0];
     host = request.get_host()
     path = request.get_full_path()
     print(request.get_host())
     print(request.get_full_path())
+    print(static_path2)
     # test1.start()
-    test1.load_data(static_path)
+    try:
+        test1.load_data(static_path,static_path2)
+    except Exception as inst:
+        print(type(inst))  # the exception instance
+        print(inst.args)  # arguments stored in .args
+        print(inst)
     context = {}
     context['test'] = test1.test()
-    context['src'] = "/static/images/cat_in_iran.jpg"
+    context['src'] = "/static/0.png"
     return render(request, 'ass1.html', context)
